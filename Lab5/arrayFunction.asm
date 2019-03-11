@@ -8,6 +8,10 @@ main:
 	# Print the original content of array
 	# setup the parameter(s)
 	# call the printArray function
+	
+	la $a0, array
+	li $a1, 10
+	jal printArray
 
 	# Ask the user for two indices
 	li   $v0, 5         	# System call code for read_int
@@ -20,13 +24,12 @@ main:
 
 	# Call the findMin function
 	# setup the parameter(s)
-	# call the function
-	
 	la $t8, array
 	sll $a0, $t0, 2
 	sll $a1, $t1, 2
 	add $a0, $t8, $a0
 	add $a1, $t8, $a1
+	# call the function
 	jal findMin
 
 	# Print the min item
@@ -109,11 +112,11 @@ findMin:
 		slt $t8, $a1, $t7
 		bne $t8, $zero, Exit
 		lw $t8, 0($t7)
-		slt $t8, $t8, $t5
-		beq $t8, $zero, Else
+		slt $s1, $t8, $t5
+		beq $s1, $zero, L1
 		addi $t5, $t8, 0
 		addi $t4, $t7, 0
-		Else: addi $t7, $t7, 4
+		L1: addi $t7, $t7, 4
 			  j Loop
 	Exit: 
 	addi $t3, $t5, 0
